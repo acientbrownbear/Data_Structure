@@ -1,0 +1,66 @@
+#include<iostream>
+
+using namespace std;
+
+template <class x>
+struct node {
+    x a;
+    node<x>* next;
+};
+
+template <class x>
+class stac{
+    int n;
+    node<x>* head;
+    node<x>* tail;
+public:
+    void push(x);
+    int siz();
+    void pop();
+    stac();
+    x first();
+};
+
+template<class x>
+stac<x>::stac(){
+    n=0;
+    head=NULL;
+    tail=NULL;
+}
+
+template<class x>
+void stac<x>::push(x var){
+    if(n==0){
+        head=new node<x>;
+        head->next=NULL;
+        head->a=var;
+        tail=head;
+    }
+    else{
+        node<x>* temp=new node<x>;
+        temp->next=head;
+        head=temp;
+        head->a=var;
+    }
+    n++;
+}
+
+template<class x>
+void stac<x>::pop(){
+    if(n>0){//cout<<"#"<<endl;
+        node<x>* temp=head;
+        head=head->next;
+        delete temp;
+        n--;
+    }
+}
+template<class x>
+x stac<x>::first(){
+    if(n>0)return head->a;
+    //else return NULL;
+}
+
+template<class x>
+int stac<x>::siz(){
+    return n;
+}

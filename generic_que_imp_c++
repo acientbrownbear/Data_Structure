@@ -1,0 +1,68 @@
+#include <iostream>
+
+using namespace std;
+
+
+template <class x>
+struct node {
+    x a;
+    node<x>* next;
+};
+
+
+template <class x>
+class que{
+    int n;
+    node<x>* head;
+    node<x>* tail;
+public:
+    void push(x);
+    int siz();
+    void pop();
+    que();
+    x first();
+};
+
+template<class x>
+que<x>::que(){
+    n=0;
+    head=NULL;
+    tail=NULL;
+}
+
+template<class x>
+void que<x>::push(x var){
+    if(n==0){
+        head=new node<x>;
+        head->next=NULL;
+        head->a=var;
+        tail=head;
+    }
+    else{
+        tail->next=new node<x>;
+        tail=tail->next;
+        tail->next=NULL;
+        tail->a=var;
+    }
+    n++;
+}
+
+template<class x>
+void que<x>::pop(){
+    if(n>0){//cout<<"#"<<endl;
+        node<x>* temp=head;
+        head=head->next;
+        delete temp;
+        n--;
+    }
+}
+template<class x>
+x que<x>::first(){
+    if(n>0)return head->a;
+    //else return NULL;
+}
+
+template<class x>
+int que<x>::siz(){
+    return n;
+}
